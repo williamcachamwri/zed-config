@@ -21,7 +21,7 @@ zed-config/
 ├── powershell/
 │   └── Microsoft.PowerShell_profile.ps1
 ├── snippets/
-│   ├── cpp.json
+│   ├── c++.json
 │   └── csharp.json
 ├── themes/
 │   └── cyber-glass-blur.json
