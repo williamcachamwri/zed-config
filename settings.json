@@ -101,7 +101,7 @@
   // Fonts and rendering
   "ui_font_family": "Segoe UI",
   "ui_font_size": 15,
-  "buffer_font_family": "Cascadia Code",
+  "buffer_font_family": "Cascadia Mono",
   "buffer_font_size": 15,
   "buffer_line_height": "comfortable",
   "buffer_font_features": {
@@ -129,6 +129,7 @@
   "completion_menu_item_kind": "symbol",
   "completion_detail_alignment": "right",
   "completion_menu_scrollbar": "auto",
+  "snippet_sort_order": "top",
   "code_lens": "on",
   "scroll_beyond_last_line": "one_page",
   "vertical_scroll_margin": 6,
