@@ -1,0 +1,12 @@
+// Zed keybindings. Defaults: shift-alt-t = task picker, f4 = start debugger,
+// f9 = toggle breakpoint, f5 = continue/rerun debug session.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "f7": ["task::Spawn", { "task_name": "C++: CMake configure + build (debug)" }],
+      "shift-f7": ["task::Spawn", { "task_name": "SQL: Run current file on SQLEXPRESS" }],
+      "ctrl-f7": ["task::Spawn", { "task_name": "SQL: Interactive sqlcmd (SQLEXPRESS)" }],
+    },
+  },
+]

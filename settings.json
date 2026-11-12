@@ -1,0 +1,368 @@
+// Zed settings — Uniform Glass Blur, Material Icons & Pro Dev Components
+// Backup saved at: C:\Users\MSl\AppData\Roaming\Zed\settings.backup.json
+{
+  "cli_default_open_behavior": "existing_window",
+  "close_on_file_delete": true,
+  "session": {
+    "trust_all_worktrees": true,
+    "restore_unsaved_buffers": true
+  },
+
+  // Ép chuẩn định dạng file C/C++ để không bao giờ bị nhầm sang C# (Roslyn) khi đổi tên file
+  "file_types": {
+    "C++": ["cpp", "cc", "cxx", "hpp", "hxx", "hh", "ipp"],
+    "C": ["c", "h"]
+  },
+
+  // Tự động cài đặt đầy đủ các extensions đang dùng (Icon + Ngôn ngữ)
+  "auto_install_extensions": {
+    "material-icon-theme": true,
+    "astro": true,
+    "csharp": true,
+    "csv": true,
+    "git-firefly": true,
+    "html": true,
+    "log": true,
+    "powershell": true,
+    "sql": true,
+    "sqlserver": true,
+    "svelte": true,
+    "swift": true,
+    "toml": true,
+    "windows-batch": true
+  },
+
+  // =========================================================================
+  // 1. GIAO DIỆN GAUSSIAN BLUR ĐỒNG NHẤT & MATERIAL ICON THEME
+  // =========================================================================
+  "icon_theme": {
+    "mode": "dark",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme"
+  },
+  "theme": {
+    "mode": "dark",
+    "light": "Ayu Light",
+    "dark": "Cyber Glass Dark (Blur)"
+  },
+
+  // Phân bổ lớp kính mờ ĐỒNG ĐỀU 100% toàn cửa sổ (tăng thêm 1 nấc blur nữa: c4 -> b2):
+  // Dùng #0d111a00 thay vì #00000000 để khi Zed lấy màu gốc (opaque) cho sticky header không bị biến thành màu đen #000000
+  "experimental.theme_overrides": {
+    "background.appearance": "blurred",
+    "background": "#0d111ab2",
+    "surface.background": "#0e1320d8",
+    "elevated_surface.background": "#0e1320d8",
+    "panel.background": "#0d111a00",
+    "panel.focused_border": "#0d111a00",
+    "panel.overlay_background": "#0d111ae6",
+    "panel.overlay_hover": "#161f30f0",
+    "title_bar.background": "#0d111ab2",
+    "title_bar.inactive_background": "#0d111ab2",
+    "toolbar.background": "#0d111a00",
+    "tab_bar.background": "#0d111a00",
+    "tab.inactive_background": "#0d111a00",
+    "tab.active_background": "#ffffff14",
+    "status_bar.background": "#0d111ab2",
+    "editor.background": "#0d111a00",
+    "editor.gutter.background": "#0d111a00",
+    "editor.subheader.background": "#0d111ac4",
+    "editor.active_line.background": "#38bdf812",
+    "editor.document_highlight.bracket_background": "#38bdf844",
+    "terminal.background": "#0d111a00",
+    "border": "#ffffff14",
+    "border.variant": "#ffffff0a",
+    "border.focused": "#38bdf888",
+    "pane.focused_border": "#00000000",
+    "pane_group.border": "#ffffff10",
+    "ghost_element.selected": "#38bdf824",
+    "ghost_element.hover": "#ffffff10",
+    "error.background": "#2c1519f2",
+    "error.border": "#f8717166",
+    "warning.background": "#292112f2",
+    "warning.border": "#fbbf2466",
+    "info.background": "#102338f2",
+    "info.border": "#38bdf866",
+    "hint.background": "#151d2cf2",
+    "hint.border": "#94a3b855",
+    "players": [
+      {
+        "cursor": "#38bdf8ff",
+        "background": "#38bdf8ff",
+        "selection": "#38bdf838"
+      }
+    ]
+  },
+
+  // Không làm tối lệch màu giữa các pane để giữ độ mờ đồng nhất
+  "active_pane_modifiers": {
+    "border_size": 0.0,
+    "inactive_opacity": 1.0
+  },
+
+  // =========================================================================
+  // 2. TYPING ANIMATION CỰC MƯỢT & HIỂN THỊ SẮC NÉT (JETBRAINS MONO NF)
+  // =========================================================================
+  "ui_font_family": "Segoe UI",
+  "ui_font_size": 15,
+  "buffer_font_family": "JetBrainsMono NF",
+  "buffer_font_size": 15,
+  "buffer_line_height": "comfortable",
+  "buffer_font_features": {
+    "calt": true,
+    "ss01": true
+  },
+  "text_rendering_mode": "subpixel",
+  "use_display_p3": true,
+
+  // Hiệu ứng gõ phím, lướt con trỏ & gợi ý code siêu mượt (Smooth Typing, Blink & Autocomplete)
+  "cursor_animation": {
+    "enabled": true
+  },
+  "cursor_blink": true,
+  "cursor_shape": "bar",
+  "hide_mouse": "on_typing_and_action",
+  "rounded_selection": true,
+  "current_line_highlight": "all",
+  "selection_highlight": true,
+  "lsp_highlight_debounce": 20,
+  "hover_popover_delay": 250,
+  "hover_popover_hiding_delay": 200,
+  "auto_signature_help": true,
+  "show_signature_help_after_edits": true,
+  "completion_menu_item_kind": "symbol",
+  "completion_detail_alignment": "right",
+  "completion_menu_scrollbar": "auto",
+  "code_lens": "on",
+  "scroll_beyond_last_line": "one_page",
+  "vertical_scroll_margin": 6,
+  "horizontal_scroll_margin": 5,
+  "scroll_sensitivity": 1.0,
+  "fast_scroll_sensitivity": 4.0,
+  "autoscroll_on_clicks": true,
+
+  // =========================================================================
+  // 3. TOP BAR (ẢNH 2), STATUS BAR & DEV COMPONENTS HIỆN ĐẠI
+  // =========================================================================
+
+  // Thanh trên cùng (Title Bar): Giữ 1 hàng gọn đẹp, hiện nhánh Git + trạng thái đồng bộ + Avatar
+  "title_bar": {
+    "show_menus": false,
+    "show_branch_status_icon": true,
+    "show_branch_name": true,
+    "show_project_items": true,
+    "show_onboarding_banner": false,
+    "show_sign_in": false,
+    "show_user_picture": true,
+    "show_user_menu": true
+  },
+
+  // Thanh Status Bar dưới đáy (Ảnh 2): Gọn gàng, chuẩn Dev (tên file, tọa độ, UTF-8, LF, ngôn ngữ)
+  "status_bar": {
+    "experimental.show": true,
+    "show_active_file": true,
+    "active_language_button": true,
+    "cursor_position_button": true,
+    "line_endings_button": true,
+    "active_encoding_button": "enabled",
+    "pending_keystrokes_indicator": true
+  },
+  "line_indicator_format": "long",
+  // Ẩn icon Collaboration ở góc phải Status Bar cho gọn, chỉ giữ các công cụ Dev thiết yếu
+  "collaboration_panel": {
+    "button": false
+  },
+  // Hiển thị lỗi/cảnh báo inline ngay cuối dòng code (giống Error Lens của VS Code)
+  "diagnostics": {
+    "inline": {
+      "enabled": true
+    }
+  },
+
+  // Thanh Tabs & Toolbar phía trên vùng code
+  "tab_bar": {
+    "show": true,
+    "show_nav_history_buttons": true,
+    "show_tab_bar_buttons": true,
+    "show_pinned_tabs_in_separate_row": true
+  },
+  "tabs": {
+    "file_icons": true,
+    "git_status": true,
+    "show_diagnostics": "all",
+    "close_position": "right",
+    "activate_on_close": "history"
+  },
+  "toolbar": {
+    "breadcrumbs": true,
+    "quick_actions": true,
+    "selections_menu": true,
+    "agent_review": true,
+    "code_actions": true
+  },
+
+  // Các tiện ích trực quan trong Editor cho Developer
+  "inline_code_actions": true,
+  "lsp_document_colors": "background",
+  "colorize_brackets": true,
+  "show_wrap_guides": true,
+  "wrap_guides": [100, 120],
+  "word_diff_enabled": true,
+
+  // Minimap gọn đẹp bên phải
+  "minimap": {
+    "show": "auto",
+    "thumb": "hover",
+    "max_width_columns": 70
+  },
+
+  // Sticky Scroll: Ghim tên class/function lên đầu khi cuộn
+  "sticky_scroll": {
+    "enabled": true
+  },
+
+  // Indent Guides: Đường kẻ khối lệnh đổi màu theo cấp độ
+  "indent_guides": {
+    "enabled": true,
+    "line_width": 1,
+    "active_line_width": 2,
+    "coloring": "indent_aware",
+    "background_coloring": "disabled"
+  },
+
+  // Inlay Hints phản hồi tức thì khi cuộn (không bị khựng)
+  "inlay_hints": {
+    "enabled": true,
+    "show_type_hints": true,
+    "show_parameter_hints": true,
+    "show_other_hints": true,
+    "show_background": false,
+    "edit_debounce_ms": 80,
+    "scroll_debounce_ms": 0
+  },
+
+  // Git Blame & Git Panel hiện thống kê dòng thêm/xóa (+ / -)
+  "git": {
+    "git_gutter": "tracked_files",
+    "gutter_debounce": 50,
+    "inline_blame": {
+      "enabled": true,
+      "delay_ms": 350
+    }
+  },
+  "git_panel": {
+    "dock": "left",
+    "tree_view": true,
+    "diff_stats": true,
+    "show_count_badge": true
+  },
+
+  // Project Panel (Cây thư mục bên trái với Material Icons) & Outline Panel
+  "project_panel": {
+    "dock": "left",
+    "default_width": 260,
+    "entry_spacing": "comfortable",
+    "bold_folder_labels": true,
+    "file_icons": true,
+    "folder_indicator": "chevron",
+    "auto_reveal_entries": true,
+    "auto_fold_dirs": true,
+    "sticky_scroll": false,
+    "git_status_indicator": true,
+    "diagnostic_badges": true,
+    "indent_guides": {
+      "show": "always"
+    }
+  },
+  "outline_panel": {
+    "dock": "right",
+    "default_width": 260,
+    "file_icons": true,
+    "indent_guides": {
+      "show": "always"
+    }
+  },
+
+  // Scrollbar thông minh
+  "scrollbar": {
+    "show": "auto",
+    "cursors": true,
+    "git_diff": true,
+    "search_results": true,
+    "selected_text": true,
+    "selected_symbol": true,
+    "diagnostics": "all"
+  },
+
+  // Terminal tích hợp: PowerShell 7 (pwsh) + JetBrainsMono Nerd Font + nền kính mờ
+  "terminal": {
+    "shell": {
+      "with_arguments": {
+        "program": "C:\\Users\\MSl\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe",
+        "args": ["-NoLogo"]
+      }
+    },
+    "font_family": "JetBrainsMono NF",
+    "font_size": 14,
+    "line_height": "comfortable",
+    "font_features": {
+      "calt": true,
+      "ss01": true
+    },
+    "blinking": "on",
+    "cursor_shape": "bar",
+    "scroll_multiplier": 1.2,
+    "copy_on_select": true,
+    "dock": "bottom"
+  },
+
+  // =========================================================================
+  // 4. CẤU HÌNH C/C++ (CLANGD + LLDB) & SQL CỦA BẠN (GIỮ NGUYÊN)
+  // =========================================================================
+  "lsp": {
+    "clangd": {
+      "binary": {
+        "path": "C:\\Program Files\\LLVM\\bin\\clangd.exe",
+        "arguments": [
+          "--background-index",
+          "--clang-tidy",
+          "--completion-style=detailed",
+          "--header-insertion=iwyu",
+          "--pch-storage=memory"
+        ]
+      }
+    }
+  },
+  "dap": {
+    "CodeLLDB": {
+      "binary": "C:\\Program Files\\LLVM\\bin\\lldb-dap.exe"
+    }
+  },
+  "languages": {
+    "C++": {
+      "tab_size": 4,
+      "language_servers": ["clangd", "!sourcekit-lsp", "!roslyn", "!omnisharp", "!csharp-ls"],
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
+          "arguments": ["--assume-filename", "{buffer_path}"]
+        }
+      }
+    },
+    "C": {
+      "tab_size": 4,
+      "language_servers": ["clangd", "!sourcekit-lsp", "!roslyn", "!omnisharp", "!csharp-ls"],
+      "format_on_save": "on",
+      "formatter": {
+        "external": {
+          "command": "C:\\Program Files\\LLVM\\bin\\clang-format.exe",
+          "arguments": ["--assume-filename", "{buffer_path}"]
+        }
+      }
+    },
+    "SQL": {
+      "tab_size": 2
+    }
+  }
+}
