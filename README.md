@@ -1,6 +1,6 @@
 # Zed Config — Cyber Glass Blur & Pro Dev Setup
 
-A modern, uniform **Glassmorphism (Gaussian Blur)** configuration for **Zed Editor** on Windows 11, paired with **Material Icon Theme**, **JetBrainsMono Nerd Font**, smooth cursor & typing animations, full LSP/DAP support (C/C++, C#, Rust, SQL), and an **Oh-My-Zsh-inspired PowerShell 7** terminal.
+A modern, uniform **Glassmorphism (Gaussian Blur)** configuration for **Zed Editor** on Windows 11, paired with **Material Icon Theme**, **Cascadia Code** (Editor) & **JetBrainsMono Nerd Font** (Terminal), smooth cursor & typing animations, full LSP/DAP support (C/C++, C#, Rust, SQL), and an **Oh-My-Zsh-inspired PowerShell 7** terminal.
 
 ![Zed Cyber Glass Blur Preview](assets/preview.jpg)
 
@@ -12,7 +12,7 @@ A modern, uniform **Glassmorphism (Gaussian Blur)** configuration for **Zed Edit
   - Consistent single-layer frosted glass (`background.appearance: "blurred"`) across the title bar, project panel, editor, tabs, and status bar.
   - High-contrast opaque/semi-opaque hover popups and diagnostic tooltips so text never bleeds through.
 - **Smooth Animations & Typography**
-  - `JetBrainsMono NF` with programming ligatures (`calt`, `ss01`) and subpixel rendering across both editor and terminal.
+  - `Cascadia Code` in the editor and `JetBrainsMono NF` in the terminal with programming ligatures (`calt`, `ss01`) and subpixel rendering.
   - Smooth cursor glide (`cursor_animation`), blinking bar cursor, rounded selections, and instant LSP/inlay-hint responsiveness.
 - **Developer Components**
   - **Material Icon Theme** (icons only, preserving the custom glass theme).

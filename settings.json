@@ -101,11 +101,11 @@
   },
 
   // =========================================================================
-  // 2. TYPING ANIMATION CỰC MƯỢT & HIỂN THỊ SẮC NÉT (JETBRAINS MONO NF)
+  // 2. TYPING ANIMATION CỰC MƯỢT & HIỂN THỊ SẮC NÉT (CASCADIA CODE)
   // =========================================================================
   "ui_font_family": "Segoe UI",
   "ui_font_size": 15,
-  "buffer_font_family": "JetBrainsMono NF",
+  "buffer_font_family": "Cascadia Code",
   "buffer_font_size": 15,
   "buffer_line_height": "comfortable",
   "buffer_font_features": {
