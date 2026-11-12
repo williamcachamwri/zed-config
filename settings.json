@@ -2,6 +2,9 @@
 {
   "cli_default_open_behavior": "existing_window",
   "close_on_file_delete": true,
+  "autosave": "on_focus_change",
+  "remove_trailing_whitespace_on_save": true,
+  "ensure_final_newline_on_save": true,
   "session": {
     "trust_all_worktrees": true,
     "restore_unsaved_buffers": true

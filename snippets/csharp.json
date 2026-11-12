@@ -1,0 +1,12 @@
+{
+  "Console WriteLine": {
+    "prefix": "cw",
+    "body": "Console.WriteLine($0);",
+    "description": "Console.WriteLine"
+  },
+  "Auto Property": {
+    "prefix": "prop",
+    "body": "public ${1:string} ${2:PropertyName} { get; set; }$0",
+    "description": "Auto-implemented property"
+  }
+}

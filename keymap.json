@@ -7,6 +7,7 @@
       "f7": ["task::Spawn", { "task_name": "C++: CMake configure + build (debug)" }],
       "shift-f7": ["task::Spawn", { "task_name": "SQL: Run current file on SQLEXPRESS" }],
       "ctrl-f7": ["task::Spawn", { "task_name": "SQL: Interactive sqlcmd (SQLEXPRESS)" }],
+      "f8": ["task::Spawn", { "task_name": "Git: LazyGit" }],
     },
   },
 ]
