@@ -1,69 +1,48 @@
-# Zed Config — Cyber Glass Blur & Pro Dev Setup
+# zed-config
 
-A modern, uniform **Glassmorphism (Gaussian Blur)** configuration for **Zed Editor** on Windows 11, paired with **Material Icon Theme**, **Cascadia Code** (Editor) & **JetBrainsMono Nerd Font** (Terminal), smooth cursor & typing animations, full LSP/DAP support (C/C++, C#, Rust, SQL), and an **Oh-My-Zsh-inspired PowerShell 7** terminal.
+Personal Zed Editor configuration for Windows 11 with blurred background, Material icons, smooth cursor animation, C/C++ & SQL tooling, and a PowerShell 7 profile.
 
-![Zed Cyber Glass Blur Preview](assets/preview.jpg)
+![Zed Preview](assets/preview.jpg)
 
----
+## Features
 
-## Highlights
+- **Blurred UI (`Cyber Glass Dark (Blur)`)**: Uniform translucent background across title bar, panels, editor, tabs, and status bar.
+- **Typography & Animations**: `Cascadia Code` in the editor, `JetBrainsMono NF` in the terminal, ligatures (`calt`, `ss01`), smooth cursor animation, and rounded selections.
+- **Dev Components**: Material Icon Theme, inline diagnostics, inlay hints, inline git blame, code lens, rainbow brackets, indent guides, minimap, and sticky scroll.
+- **PowerShell 7 Profile**: Two-line prompt with git status, `PSReadLine` inline history suggestions, `zoxide`, `fzf`, `eza`, `bat`, `ripgrep`, and `lazygit`.
 
-- **Uniform Gaussian Blur (`Cyber Glass Dark (Blur)`)**
-  - Consistent single-layer frosted glass (`background.appearance: "blurred"`) across the title bar, project panel, editor, tabs, and status bar.
-  - High-contrast opaque/semi-opaque hover popups and diagnostic tooltips so text never bleeds through.
-- **Smooth Animations & Typography**
-  - `Cascadia Code` in the editor and `JetBrainsMono NF` in the terminal with programming ligatures (`calt`, `ss01`) and subpixel rendering.
-  - Smooth cursor glide (`cursor_animation`), blinking bar cursor, rounded selections, and instant LSP/inlay-hint responsiveness.
-- **Developer Components**
-  - **Material Icon Theme** (icons only, preserving the custom glass theme).
-  - **Inline Diagnostics** (Error Lens style), **Inlay Hints**, **Inline Git Blame**, **Code Lens**, **Rainbow Brackets**, **Indent Guides**, **Minimap**, **Sticky Scroll**, and **Git Diff Stats**.
-  - Clean **Title Bar** (branch status & user avatar) and **Status Bar** (active file, line/col, `UTF-8`, `LF`, language selector, pending keystrokes).
-- **Oh-My-Zsh Style PowerShell 7 Terminal**
-  - Clean 2-line prompt with Git branch/dirty status and command execution timer.
-  - `PSReadLine 2.4.5` inline history autosuggestions (`→` to accept, `F2` to switch view).
-  - Pre-wired CLI power tools: `zoxide`, `fzf` (`Ctrl+R`, `fe`), `eza` (`ll`, `la`, `lt`), `bat` (`catn`), `ripgrep` (`grep`), `lazygit` (`lg`), and `gh`.
-
----
-
-## Repository Structure
+## Files
 
 ```text
 zed-config/
 ├── assets/
-│   └── preview.jpg                        # UI preview screenshot
+│   └── preview.jpg
 ├── powershell/
-│   └── Microsoft.PowerShell_profile.ps1   # Oh-My-Zsh style PowerShell 7 profile
+│   └── Microsoft.PowerShell_profile.ps1
 ├── themes/
-│   └── cyber-glass-blur.json              # Custom Cyber Glass Dark (Blur) theme
+│   └── cyber-glass-blur.json
 ├── tools/
-│   ├── cpp-build.cmd                      # Smart CMake + single-file C/C++ fallback
-│   ├── cpp-run.cmd                        # MSVC single-file runner with UTF-8 output
-│   ├── sql-run.cmd                        # SQL Server runner
-│   └── sql-shell.cmd                      # Interactive sqlcmd shell
-├── keymap.json                            # Custom workspace keybindings
-├── settings.json                          # Main Zed settings & auto_install_extensions
-└── tasks.json                             # Global C/C++ and SQL tasks
+│   ├── cpp-build.cmd
+│   ├── cpp-run.cmd
+│   ├── sql-run.cmd
+│   └── sql-shell.cmd
+├── keymap.json
+├── settings.json
+└── tasks.json
 ```
 
----
+## Extensions
 
-## Auto-Installed Extensions
+Declared in `auto_install_extensions` inside `settings.json`:
 
-All extensions below are declared under `auto_install_extensions` in `settings.json` and install automatically when Zed launches:
+`material-icon-theme`, `astro`, `csharp`, `csv`, `git-firefly`, `html`, `log`, `powershell`, `sql`, `sqlserver`, `svelte`, `swift`, `toml`, `windows-batch`
 
-- `material-icon-theme`
-- `astro`, `csharp`, `csv`, `git-firefly`, `html`, `log`, `powershell`, `sql`, `sqlserver`, `svelte`, `swift`, `toml`, `windows-batch`
+## Setup (Windows 11)
 
----
-
-## Quick Setup (Windows 11)
-
-1. **Install Nerd Font & CLI tools:**
+1. Install the font and CLI tools:
    ```powershell
    winget install Microsoft.PowerShell DEVCOM.JetBrainsMonoNerdFont ajeetdsouza.zoxide junegunn.fzf BurntSushi.ripgrep.MSVC sharkdp.bat eza-community.eza JesseDuffield.lazygit GitHub.cli
    ```
-2. **Copy Zed configuration files** into `%APPDATA%\Zed\`:
-   - `settings.json`, `keymap.json`, `tasks.json`, `themes/`, and `tools/`
-3. **Copy the PowerShell 7 profile** into:
-   - `Documents\PowerShell\Microsoft.PowerShell_profile.ps1`
-4. **Launch Zed** — themes, animations, Material icons, and all 14 extensions will load automatically.
+2. Copy `settings.json`, `keymap.json`, `tasks.json`, `themes/`, and `tools/` to `%APPDATA%\Zed\`.
+3. Copy `powershell/Microsoft.PowerShell_profile.ps1` to `Documents\PowerShell\Microsoft.PowerShell_profile.ps1`.
+4. Open Zed.

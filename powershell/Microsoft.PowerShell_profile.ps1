@@ -1,9 +1,6 @@
-﻿# =============================================================================
-# Modern Oh-My-Zsh Style PowerShell 7 Profile (Cyber Glass + Nerd Font Edition)
-# Integrated: zoxide, fzf, ripgrep (rg), bat, eza, lazygit, gh, PSReadLine
-# =============================================================================
+﻿# PowerShell 7 profile
 
-# 1. UTF-8 Tiếng Việt chuẩn cho Terminal
+# UTF-8 encoding
 [Console]::InputEncoding  = [System.Text.Encoding]::UTF8
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 $OutputEncoding = [System.Text.Encoding]::UTF8
@@ -11,9 +8,9 @@ if ($IsWindows -or $PSVersionTable.PSVersion.Major -lt 6) {
     chcp 65001 > $null
 }
 
-# 2. Theo dõi thời gian chạy lệnh trước đó
 $script:__LastCmdStart = $null
 
+# PSReadLine setup
 if (Get-Module -ListAvailable PSReadLine) {
     Import-Module PSReadLine -MinimumVersion 2.1.0 -ErrorAction SilentlyContinue
     if (-not (Get-Module PSReadLine)) { Import-Module PSReadLine }
@@ -24,7 +21,7 @@ if (Get-Module -ListAvailable PSReadLine) {
     Set-PSReadLineOption -HistoryNoDuplicates
     Set-PSReadLineOption -ShowToolTips
 
-    # zsh-autosuggestions (Inline Ghost Text từ lịch sử, bấm → để nhận, F2 đổi chế độ)
+    # Inline history suggestions
     if (((Get-Module PSReadLine).Version -ge [version]'2.1.0') -and (-not [Console]::IsOutputRedirected)) {
         try {
             Set-PSReadLineOption -PredictionSource History
@@ -33,14 +30,14 @@ if (Get-Module -ListAvailable PSReadLine) {
         } catch {}
     }
 
-    # Ctrl+R mở fzf tìm kiếm lịch sử gõ lệnh siêu nhanh (giống zsh + fzf)
+    # Fuzzy history search with fzf (Ctrl+R)
     if ((Get-Command fzf -ErrorAction SilentlyContinue) -and (-not [Console]::IsOutputRedirected)) {
         Set-PSReadLineKeyHandler -Key 'Ctrl+r' -ScriptBlock {
             $histPath = (Get-PSReadLineOption).HistorySavePath
             if (Test-Path $histPath) {
                 $lines = Get-Content $histPath -ErrorAction SilentlyContinue
                 [array]::Reverse($lines)
-                $selected = $lines | Select-Object -Unique | fzf --height 40% --layout=reverse --border --prompt="❯ "
+                $selected = $lines | Select-Object -Unique | fzf --height 40% --layout=reverse --border --prompt="> "
                 if ($selected) {
                     [Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
                     [Microsoft.PowerShell.PSConsoleReadLine]::Insert($selected)
@@ -51,17 +48,17 @@ if (Get-Module -ListAvailable PSReadLine) {
 
     $esc = [char]27
     $colors = @{
-        Command   = "$esc[38;2;56;189;248m"   # #38bdf8 Cyan
-        Parameter = "$esc[38;2;148;163;184m"  # #94a3b8 Slate
-        String    = "$esc[38;2;52;211;153m"   # #34d399 Emerald
-        Operator  = "$esc[38;2;125;211;252m"  # #7dd3fc Light Cyan
-        Variable  = "$esc[38;2;244;114;182m"  # #f472b6 Pink
-        Number    = "$esc[38;2;244;114;182m"  # #f472b6 Pink
-        Keyword   = "$esc[38;2;192;132;252m"  # #c084fc Purple
-        Type      = "$esc[38;2;45;212;191m"   # #2dd4bf Teal
-        Comment   = "$esc[38;2;100;116;139m"  # #64748b Muted
-        Error     = "$esc[38;2;248;113;113m"  # #f87171 Red
-        Default   = "$esc[38;2;226;232;240m"  # #e2e8f0 Text
+        Command   = "$esc[38;2;56;189;248m"
+        Parameter = "$esc[38;2;148;163;184m"
+        String    = "$esc[38;2;52;211;153m"
+        Operator  = "$esc[38;2;125;211;252m"
+        Variable  = "$esc[38;2;244;114;182m"
+        Number    = "$esc[38;2;244;114;182m"
+        Keyword   = "$esc[38;2;192;132;252m"
+        Type      = "$esc[38;2;45;212;191m"
+        Comment   = "$esc[38;2;100;116;139m"
+        Error     = "$esc[38;2;248;113;113m"
+        Default   = "$esc[38;2;226;232;240m"
     }
     if ((Get-Module PSReadLine).Version -ge [version]'2.1.0') {
         $colors['InlinePrediction'] = "$esc[38;2;100;116;139m"
@@ -74,12 +71,12 @@ if (Get-Module -ListAvailable PSReadLine) {
     }
 }
 
-# 3. Kích hoạt zoxide (gõ `z <tên_folder>` để nhảy tới mọi nơi)
+# zoxide init
 if (Get-Command zoxide -ErrorAction SilentlyContinue) {
     Invoke-Expression (& { (zoxide init powershell | Out-String) })
 }
 
-# 4. Prompt phong cách Oh-My-Zsh / Pure (kèm Nerd Font icons)
+# Two-line prompt with git status and command duration
 function prompt {
     $lastOk = $?
     $esc = [char]27
@@ -119,9 +116,9 @@ function prompt {
         if ($LASTEXITCODE -eq 0 -and $branch) {
             $dirty = git status --porcelain --ignore-submodules -uno 2>$null
             if ($dirty) {
-                $gitText = " ${cMuted}on ${cPurple} ${branch}${cYellow} ✗${reset}"
+                $gitText = " ${cMuted}on ${cPurple}${branch}${cYellow} *${reset}"
             } else {
-                $gitText = " ${cMuted}on ${cPurple} ${branch}${cGreen} ✓${reset}"
+                $gitText = " ${cMuted}on ${cPurple}${branch}${cGreen} ok${reset}"
             }
         }
     }
@@ -129,11 +126,11 @@ function prompt {
     $arrowColor = if ($lastOk) { $cGreen } else { $cRed }
 
     Write-Host ""
-    Write-Host "${cCyan} ${displayPath}${reset}${gitText}${durationText}"
+    Write-Host "${cCyan}${displayPath}${reset}${gitText}${durationText}"
     return "${arrowColor}❯${reset} "
 }
 
-# 5. Điều hướng & Lệnh hiện đại (eza, bat, rg, fzf)
+# Navigation and file helpers
 function .. { Set-Location .. }
 function ... { Set-Location ..\.. }
 function .... { Set-Location ..\..\.. }
@@ -141,7 +138,7 @@ function open { param([string]$Path = ".") Invoke-Item $Path }
 function mkcd { param([string]$Path) New-Item -ItemType Directory -Force -Path $Path | Out-Null; Set-Location $Path }
 function touch { param([string]$Path) if (Test-Path $Path) { (Get-Item $Path).LastWriteTime = Get-Date } else { New-Item -ItemType File -Path $Path | Out-Null } }
 function which { param([string]$Name) (Get-Command $Name -ErrorAction SilentlyContinue).Source }
-function reload { . $PROFILE; Write-Host "✓ Đã nạp lại PowerShell Profile!" -ForegroundColor Green }
+function reload { . $PROFILE; Write-Host "Reloaded profile." -ForegroundColor Green }
 
 if (Get-Command eza -ErrorAction SilentlyContinue) {
     function ll { param([string]$Path = ".") eza -la --icons --git --group-directories-first $Path }
@@ -160,7 +157,7 @@ if (Get-Command bat -ErrorAction SilentlyContinue) {
         param([Parameter(Mandatory)][string]$Path)
         $i = 1
         Get-Content $Path | ForEach-Object {
-            Write-Host ("{0,4} │ " -f $i) -NoNewline -ForegroundColor DarkGray
+            Write-Host ("{0,4} | " -f $i) -NoNewline -ForegroundColor DarkGray
             Write-Host $_
             $i++
         }
@@ -215,7 +212,7 @@ function sizeof {
     else { "$bytes B" }
 }
 
-# 6. Quản lý Port, Process & Hệ thống cho Dev
+# Process, port and system helpers
 function ports {
     Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue |
         Sort-Object LocalPort -Unique |
@@ -232,11 +229,11 @@ function ports {
 function killport {
     param([Parameter(Mandatory)][int]$Port)
     $conns = Get-NetTCPConnection -LocalPort $Port -State Listen -ErrorAction SilentlyContinue
-    if (-not $conns) { Write-Host "Không có tiến trình nào đang mở port $Port." -ForegroundColor Yellow; return }
+    if (-not $conns) { Write-Host "No process listening on port $Port." -ForegroundColor Yellow; return }
     $conns | Select-Object -ExpandProperty OwningProcess -Unique | ForEach-Object {
         $p = Get-Process -Id $_ -ErrorAction SilentlyContinue
         Stop-Process -Id $_ -Force
-        Write-Host "✓ Đã tắt $($p.ProcessName) (PID $_) đang giữ port $Port" -ForegroundColor Green
+        Write-Host "Stopped $($p.ProcessName) (PID $_) on port $Port." -ForegroundColor Green
     }
 }
 
@@ -267,7 +264,7 @@ function sysinfo {
     Write-Host "OS  : " -NoNewline -ForegroundColor Cyan; Write-Host $os.Caption
 }
 
-# 7. Git Shortcuts, LazyGit & C/C++ Quick Run
+# Git shortcuts and C/C++ runner
 function lg { lazygit }
 function gs { git status -sb }
 function ga { param([Parameter(ValueFromRemainingArguments=$true)]$Args) git add @Args }
@@ -277,7 +274,7 @@ function gl { git log --oneline --graph --decorate -n 15 }
 function gd { param([Parameter(ValueFromRemainingArguments=$true)]$Args) git diff @Args }
 function gb { git branch --sort=-committerdate }
 function gnew { param([Parameter(Mandatory)][string]$Branch) git checkout -b $Branch }
-function gundo { git reset --soft HEAD~1; Write-Host "✓ Đã hoàn tác commit gần nhất (code vẫn được giữ)." -ForegroundColor Green }
+function gundo { git reset --soft HEAD~1; Write-Host "Undid last commit (changes kept)." -ForegroundColor Green }
 
 function cpprun {
     param([Parameter(Mandatory)][string]$File)
@@ -285,25 +282,25 @@ function cpprun {
     & "$env:APPDATA\Zed\tools\cpp-run.cmd" $full "$PWD\build\single"
 }
 
-# 8. Bảng tra cứu nhanh (gõ: devhelp)
+# Command reference
 function devhelp {
-    Write-Host "`n⚡ ZSH-STYLE PRO DEV TERMINAL (PS7 + NERD FONT)" -ForegroundColor Cyan
-    Write-Host "────────────────────────────────────────────────────────────" -ForegroundColor DarkGray
-    Write-Host " Điều hướng & Tìm kiếm (zoxide + fzf + eza + bat + rg):" -ForegroundColor Magenta
-    Write-Host "  z <folder>           Nhảy tới bất kỳ thư mục nào đã từng vào"
-    Write-Host "  Ctrl+R               Tìm lịch sử lệnh mờ (fzf)"
-    Write-Host "  fe                   Tìm file mờ (kèm preview) & mở thẳng trong Zed"
-    Write-Host "  ll / la / lt         Liệt kê file kèm Icon + Git / Cây thư mục"
-    Write-Host "  catn <f> / grep <t>  Đọc code có màu (bat) / Tìm chuỗi siêu tốc (rg)"
-    Write-Host "  open / sizeof / ff   Mở Explorer / Tính dung lượng / Tìm file"
-    Write-Host "  cpprun <file.cpp>    Biên dịch & chạy nhanh C/C++ (UTF-8)"
-    Write-Host "`n Hệ thống & Mạng:" -ForegroundColor Magenta
-    Write-Host "  ports / killport <p> Xem port đang mở / Tắt tiến trình chiếm port"
-    Write-Host "  psg <name> / sysinfo Tìm process + RAM / Thông số CPU & RAM"
-    Write-Host "  myip / reload        Xem IP Local+Public / Nạp lại Profile"
-    Write-Host "`n Git & TUI:" -ForegroundColor Magenta
-    Write-Host "  lg                   Mở LazyGit (giao diện Git trực quan)"
-    Write-Host "  gs / gl / gd / gb    Status / Log cây / Diff / Danh sách branch"
-    Write-Host "  ga / gc / gp / gundo Add / Commit / Push / Hoàn tác commit"
-    Write-Host "────────────────────────────────────────────────────────────`n" -ForegroundColor DarkGray
+    Write-Host "`nDev Terminal Commands" -ForegroundColor Cyan
+    Write-Host "------------------------------------------------------------" -ForegroundColor DarkGray
+    Write-Host " Navigation and Files:" -ForegroundColor Magenta
+    Write-Host "  z <dir>              Jump to a recent directory (zoxide)"
+    Write-Host "  Ctrl+R               Fuzzy history search (fzf)"
+    Write-Host "  fe                   Fuzzy find file with preview and open in Zed"
+    Write-Host "  ll / la / lt         List files with icons / tree view (eza)"
+    Write-Host "  catn <f> / grep <t>  View file (bat) / search text (rg)"
+    Write-Host "  open / sizeof / ff   Open Explorer / folder size / find file"
+    Write-Host "  cpprun <file.cpp>    Compile and run a C/C++ file (UTF-8)"
+    Write-Host "`n System and Network:" -ForegroundColor Magenta
+    Write-Host "  ports / killport <p> List open ports / kill process by port"
+    Write-Host "  psg <name> / sysinfo Find process / show CPU & RAM"
+    Write-Host "  myip / reload        Show local & public IP / reload profile"
+    Write-Host "`n Git:" -ForegroundColor Magenta
+    Write-Host "  lg                   Open LazyGit"
+    Write-Host "  gs / gl / gd / gb    Status / graph log / diff / branches"
+    Write-Host "  ga / gc / gp / gundo Add / commit / push / soft undo commit"
+    Write-Host "------------------------------------------------------------`n" -ForegroundColor DarkGray
 }
